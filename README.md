@@ -1,2 +1,2 @@
 # Reversi-AI
-In this C program, you can play Reversi against a bot.
+In this C program, you can play Reversi against a AI.
