@@ -580,9 +580,13 @@ bool opponentNearby(char board[][MAX], int n, char compColour, int possRow, int 
 
 bool compTurn(char board[][MAX], int n, char colour, int *playRow, int *playCol, int numTurns){
     // determines move for computer, if there is no move returns false, else returns true and hanges value of row and col that it will play in main
+	// - prioritizes corners
+	// - then prioritizes edges
+	// - selects a "regualar move' with the highest score (# of flips)
+
     
   //  const int EARLY_GAME = 0; // change - 5-10 was okay
-    // prev version that won against smartest only, get rifd of oppoennt nearby
+    // prev version that won against smartest only, get rid of oppoennt nearby
     
     char piece;
     int cornerScore = 0;
@@ -611,7 +615,7 @@ bool compTurn(char board[][MAX], int n, char colour, int *playRow, int *playCol,
                 for (int deltaRow = -1; (deltaRow <=1) && (!canPlay); deltaRow++){
                     for (int deltaCol = -1; (deltaCol <=1)  && (!canPlay); deltaCol++){
                         
-                        // if that is a legal move, calculates the score
+                        // if that is a legal move
                         if(legalDirection(board, n, row, col, colour, deltaRow, deltaCol)){
                             canPlay = true; // exits for loops
                         }
@@ -642,7 +646,7 @@ bool compTurn(char board[][MAX], int n, char colour, int *playRow, int *playCol,
                         
                     // if it is an edge
                     } else if (((row == 1) || (col == 1) || (row ==n) || (col ==n)) && (!cornerMove)){
-                        // checks above row and below if the oppponent is there and if there is an empty space -Ffor the oponent to jump
+                        // checks above row and below if the oppponent is there and if there is an empty space -for the oponent to jump
                         if (((board[row][col+1] != opponent) && (board[row][col-1] != 'U')) || ((board[row][col -1] != opponent) && (board[row][col +1] != 'U')) || (!edgeMove)){
                             
                             // detrmine which edge move is better, but does not take into account bad edges
